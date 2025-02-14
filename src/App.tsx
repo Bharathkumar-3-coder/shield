@@ -68,6 +68,7 @@ function App() {
       console.error('Error starting speech recognition:', err);
       setError('వాయిస్ ఇన్పుట్ ప్రారంభించడంలో సమస్య. దయచేసి మళ్లీ ప్రయత్నించండి.');
     }
+    
   }, [resetTranscript, browserSupportsSpeechRecognition]);
 
   const stopListening = useCallback(() => {
