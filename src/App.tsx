@@ -29,12 +29,23 @@ function App() {
     clearTranscriptOnListen: true
   });
 
-  useEffect(() => {
+   useEffect(() => {
     if (transcript) {
       stopListening();
       handleLocationSubmit(transcript);
     }
   }, [transcript]);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        window.speechSynthesis.cancel(); // Stop voice when tab is inactive
+        setIsSpeaking(false);
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, []);
 
   const handleLocationSubmit = useCallback(async (location: string) => {
     try {
